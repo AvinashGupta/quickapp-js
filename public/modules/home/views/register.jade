@@ -1,0 +1,65 @@
+mixin errorMessages(model, messageList, classes)
+  .error-messages(class=classes ng-messages=model us-messages-include=messageList 
+    ng-show= '!'+ model+'.$pristine && ' + model + '.$invalid')
+
+- var registration = {}
+- registration.name = {}
+- registration.name.required = 'username is required!'
+- registration.name.minlength = 'name should be atleast 5 char long'
+- registration.name.minlength = 'name should be maximum 20 char long'
+
+- registration.email = {}
+- registration.email.required = 'Email is required!'
+- registration.email.usEmail = 'This is incorrect email'
+- registration.email.usEmailAvailable = 'This email is already registered'
+
+- registration.password = {}
+- registration.password.required = 'Password is required!'
+- registration.password.minlength = 'Min 8 char, atleast 1 num and 1 special char'
+
+.login-registration
+  .content
+    form(name='registration' novalidate us-submit='signup()')
+      .form-group.pure-g
+        .pure-u-9-24
+          input.form-control(name='name' ng-model="credentials.name" ng-model-options='{ updateOn: "blur" }'
+            required ng-minlength="5" ng-maxlength="20" placeholder='Full Name')
+        .pure-u-15-24
+          +errorMessages('registration.name', JSON.stringify(registration.name))
+          .error-messages(ng-show='registration.name.$valid')
+            span Hi! <span ng-bind='credentials.name | getFirstName' />
+      .form-group.pure-g
+        .pure-u-9-24
+          input.form-control(name='email' ng-model="credentials.email" ng-model-options='{ updateOn: "blur" }'
+            required us-email us-email-available placeholder='Email')
+        .pure-u-15-24
+          +errorMessages('registration.email', JSON.stringify(registration.email))
+          .error-messages(ng-show='registration.email.$valid')
+            span Check Email to configure!
+
+      .form-group.pure-g
+        .pure-u-9-24
+          input.form-control(type="password" name='password' ng-model="credentials.password" 
+            required ng-minlength="8" placeholder='Password')
+        .pure-u-15-24
+          +errorMessages('registration.password', JSON.stringify(registration.password))
+          .error-messages(ng-show='registration.password.$valid')
+            span(ng-show='credentials.password.length >= 12') This is strong
+            span(ng-show='credentials.password.length < 12') This is weak
+
+      .controls
+        button.us-color-btn.btn-l2 Join
+        span.text this awesome community
+    .community(img-rotator)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)

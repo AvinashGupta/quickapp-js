@@ -1,0 +1,87 @@
+doctype html
+- var jadeHtml = require('fs').readFileSync(settings.views + application.indexFileUrl, 'utf8');
+- var html = require('jade').compile(jadeHtml, {cache:cache, pretty:pretty})({})
+html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
+  head
+    title #{application.metaData.title}
+
+    // General META 
+    meta(charset='utf-8')
+    meta(http-equiv='Content-type', content='text/html;charset=UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+
+    // Semantic META 
+    meta(name='keywords', content=application.metaData.keywords)
+    meta(name='description', content=application.metaData.description)
+
+    // Social META 
+    meta(property='fb:app_id', content=application.metaData.appID)
+    meta(property='og:site_name', content=application.metaData.siteName)
+    meta(property='og:title', content=application.metaData.title)
+    meta(property='og:description', content=application.metaData.description)
+    meta(property='og:url', content=application.metaData.url)
+    meta(property='og:image', content=application.metaData.image)
+    meta(property='og:type', content=application.metaData.type)
+
+    // Fav Icon 
+    link(href=application.metaData.favicon rel='shortcut icon',type='image/x-icon')
+
+    // Application Modules CSS
+    - for(var j=0; j<application.css.length; j++)
+        link(rel='stylesheet' href=application.css[j])
+
+    // HTML5 Shim 
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+
+    script.
+      // Init the application configuration module for AngularJS application
+      var ApplicationConfiguration = (function() {
+        // Init module configuration options
+        var applicationModuleName = !{'"' + application.angular.globalModlueName  + '"'};
+        var applicationModuleVendorDependencies = !{JSON.stringify(application.angular.globalDependencies)};
+        var allModules = [];
+        // Add a new vertical module
+        var registerModule = function(moduleName) {
+          // Create angular module
+          angular.module(moduleName, []);
+
+          allModules.push(moduleName);
+        };
+
+        return {
+          applicationModuleName: applicationModuleName,
+          applicationModuleVendorDependencies: applicationModuleVendorDependencies,
+          allModules : allModules,
+          registerModule: registerModule
+        };
+      })();
+
+
+    // Application Modules
+    - for(var j=0; j<application.js.length; j++)
+        script(type='text/javascript' src=application.js[j])
+
+
+    script.
+      //Then define the init function for starting up the application
+      angular && angular.element(document).ready(function() {
+        //Fixing facebook bug with redirect
+        if (window.location.hash === '#_=_') window.location.hash = '#!';
+        //Start by defining the main module and adding the module dependencies
+        angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies.concat(ApplicationConfiguration.allModules));
+        
+        // Setting HTML5 Location Mode
+        angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
+          function($locationProvider) {
+            $locationProvider.
+            // html5Mode(true);
+            hashPrefix('!');
+          }
+        ]);
+
+        //Then init the app
+        angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+      });
+  !{html}

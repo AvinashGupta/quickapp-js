@@ -1,0 +1,459 @@
+@import 'index'
+@import 'nib'
+
+html, body
+  width: 100%;
+  height: 100%;
+
+body
+  overflow-y scroll
+  // padding-left 10px
+body::-webkit-scrollbar, div::-webkit-scrollbar
+  width: 10px;
+ 
+body::-webkit-scrollbar-track, div::-webkit-scrollbar-track
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);
+ 
+body::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb
+  background-color: darkgrey;
+  outline: 0
+  border-radius 5px
+
+footer 
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:30px;
+  width:100%;
+  background:#ddd;
+  box-shadow:0 8px 6px 6px black
+
+footer p 
+  padding:5px 0 12px 10px
+h1, h2, h3, h4, h5, h6
+  heading-font()
+
+body, html, .pure-g, .pure-g-r, .pure-g [class *="pure-u"], .pure-g-r [class *="pure-u"]
+  letter-spacing: inherit;
+  text-font();
+*
+  letter-spacing 1px;
+
+/****** Font & sizes *****/
+.us-F1
+  us-F1()
+.us-F2
+  us-F2()
+.us-F3
+  us-F3()
+.us-F4
+  us-F4()
+.us-F5
+  us-F5()
+
+.heading-font
+  heading-font()
+.text-font
+  text-font()
+/**************/
+
+/****** color pelletes ******/
+// 1. Base colors
+.uber-black  // (in LOGO)
+  uber-black()
+.uber-blue
+  uber-blue()
+.uber-green
+  uber-green()
+.uber-red //  (in LOGO)
+  uber-red()
+.uber-yellow
+  uber-yellow()
+.uber-white
+  uber-white()
+
+// 2. Light colors
+.uber-light-gray
+  uber-light-gray();
+.uber-light-blue
+  uber-light-blue();
+.uber-light-green
+  uber-light-green();
+.uber-light-red
+  uber-light-red();
+.uber-light-yellow
+  uber-light-yellow();
+.uber-light-white
+  uber-light-white();
+
+// 3. Dark colors
+.uber-dark-gray
+  uber-dark-gray();
+.uber-dark-blue
+  uber-dark-blue();
+.uber-dark-green
+  uber-dark-green();
+.uber-dark-red
+  uber-dark-red();
+.uber-dark-yellow //(in LOGO)
+  uber-dark-yellow();
+.uber-dark-white
+   uber-dark-white();
+/**************/
+
+/****** mesleneous *******/
+.sub-list{  // double upon usage
+    -webkit-padding-start: 25px;
+    list-style-type: lower-alpha;
+}
+a.undecorated-link:hover 
+  text-decoration: none;
+
+.noVetMarg{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.inln{
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.round-sel{
+    display: inline-block;
+    min-width: 123px;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid #959595;
+    padding-left: 7px;
+    padding-right: 5px;
+    color: inherit;
+    /*font-family: 'HelveticaNeueLTCom-Md';*/
+    font-size: inherit;
+    line-height: 26px;
+}
+.round-sel img{
+    display: inline-block;
+    float: right;
+    margin-left: 20px;
+}
+.inline-col{
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    zoom: 1;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-rendering: auto;
+}
+/******************/
+
+/****** table vertical align ******/
+.table-cont{
+    display: table;
+    height: 100%;
+}
+.table-cont > div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+/*.table-cont > *.first-child{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}*/
+.text-middle-align{
+  vertical-align middle
+}
+/********************************/
+
+
+/*********** SELECT DROP DOWN ***********/
+.picker{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px; 
+    -moz-border-radius: 4px; 
+    border-radius: 4px; 
+    /*font-family: "Open Sans";*/
+    border: 1px solid #898989;
+    background-color: #fff;
+}
+
+.picker-disabled, .picker-disabled *{
+  color: #c5c5c5 !important;
+  border-color: #c5c5c5 !important;
+  box-shadow: 2px 2px 5px #c5c5c5;
+}
+.picker-disabled:after{
+  color: #c5c5c5 !important;
+}
+.picker:after, .picker-round:after{
+  content: "";
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  z-index: 0;
+  color: #999;
+  width: 0;
+  margin-top: -2px;
+  height: 0;
+  border-top: 6px solid;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+.picker select, .picker-round select {
+    /*font-family: 'HelveticaNeueLTCom-Bd';*/
+    font-size: 14px;
+    letter-spacing: 0;
+
+    position: relative;
+    display: block;
+    min-width: 100%;
+    width: 120%;
+    height: 32px;
+    min-width: 100%;
+    max-width: 100%; 
+    padding: 5px 30px 4px 15px;
+    color: #555555;
+    border: none;
+    background: transparent;
+    outline: none;
+    -webkit-appearance: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.picker-round select {
+  font-family: inherit;
+  font-size: inherit;
+  width: 120%;
+  height: auto;
+  min-width: 100%;
+  line-height: 23px;
+  letter-spacing: 1px;
+  padding: 3px 30px 0px 0px;
+  color: inherit;
+}
+
+.picker-round{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+
+    min-width: 123px;
+    min-height: 25px;
+    border: 1px solid #959595;
+    background-color: #fff;
+    padding: 0 5px 0 7px;
+    color: inherit;
+    line-height: 26px;
+
+    -webkit-border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    border-radius: 5px; 
+}
+
+.dropdown-menu>li>a.selected{
+  background-color $uber-light-blue;
+}
+/***************************/
+
+/********* wrappers ********/
+.inline-wpr{
+  display: inline-block;
+  width: 100%;
+  height: 100%
+}
+/***************************/
+.full-clm{
+  height: 100%;
+}
+/******** search box *********/
+.search-box{
+  display: inline-block;
+  display: table;
+  height: 40px;
+  min-width: 100px;
+  padding-left: 45px;
+}
+.search-box > div{
+  position: relative;
+  vertical-align: middle;
+  display: table-cell;
+}
+.search-box > div input{
+  width: 100%;
+  height: 35px;
+  border: 1px solid #959595;
+  color: #000;
+  padding-left: 5px;
+}
+.search-box .search-btn{
+  border: 0;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  cursor: pointer;
+  height: 31px;
+  position: absolute;
+  right: 1px;
+  top: 4px;
+  width: 30px;
+  font-size: 17px;
+  display: table;
+  text-align: center;
+  background-color: #fff;
+}
+.search-box .search-btn span{
+  display: table-cell;
+  vertical-align: middle;
+  color: #A0A0A0;
+}
+/*****************************/
+
+/**************** textAngular global css ****************/
+*[text-angular] .ta-scroll-window.form-control{
+  height: 200px;
+}
+*[text-angular] .btn-group .btn {
+  font-size: 10px;
+}
+*[text-angular] .ta-toolbar.btn-toolbar{
+  margin-bottom: 5px;
+}
+/********************************************************/
+
+
+
+
+/**** btn ****/
+.us-btn{
+  line-height: 13px;
+  padding: 5px 10px 5px 10px;
+  background-image: linear-gradient(to bottom,#fff 100%,#E0E0E1 100%);
+  border: 1px solid #0776be;
+  color: #0776be;
+  border-radius: 0;
+}
+.us-btn-following{
+  border: 1px solid #2ecc71;
+  color: #2ecc71;
+  font-family: FontAwesome;
+}
+.us-btn-following:after{
+  content: "\f00c";
+  font-size: 14px;
+  line-height: 7px;
+  vertical-align: -1px;
+  font-weight: 100;
+  margin-left: 5px;
+}
+
+
+
+.us-plan-btn{
+  border: 2px solid #0776be;
+  color: #0776be;
+  padding: 0px 10px;
+  padding-top: 1px;
+  font-size: 12px;
+  border-radius: 0;
+  background-color: #fff
+  white-space: nowrap;
+}
+.us-color-btn{
+  border: 0;
+  color: #fff;
+  padding: 0px 10px;
+  padding-top: 1px;
+  font-size: 12px;
+  border-radius: 0;
+  background-color: $uber-dark-blue;
+  white-space: nowrap;
+  font-weight 100
+}
+.us-void-btn{
+  border: 0;
+  background: 0;
+  outline: none;
+}
+.us-plan-btn.btn-l1, .us-color-btn.btn-l1{
+  padding: 5px 13px;
+}
+.us-plan-btn.btn-l2, .us-color-btn.btn-l2{
+  padding: 7px 18px;
+  font-size 16px
+}
+.us-plan-btn.green{
+  border-color $uber-dark-green;
+  color $uber-dark-green;
+}
+.us-plan-btn.red{
+  border-color $uber-red;
+  color $uber-red;
+}
+.us-color-btn.green{
+  background-color: $uber-dark-green;
+  color #fff
+}
+.us-color-btn.gray{
+  background-color: $uber-light-gray;
+  color #fff 
+}
+.us-color-btn.red{
+  background-color: $uber-red;
+  color #fff 
+}
+.us-color-btn.yellow{
+  background-color: $uber-light-yellow;
+  color #000
+}
+.us-color-btn.shadow{
+  box-shadow 1px 2px 1px 0px $uber-light-gray;
+}
+/*************/
+
+/** Input **/
+.us-input{
+  border: 1px solid #898989;
+  border-radius: 4px;
+  // height: 35px;
+  // width: 100%;
+  padding 5px 10px;
+  padding-left: 10px;
+}
+/*************/
+
+/*********** containers **********/
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 900px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 975px;
+  }
+}
+/*********************************/

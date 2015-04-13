@@ -1,0 +1,33 @@
+@import 'color-palletes'
+@import 'nib'
+
+.login-registration
+  .content
+    margin auto
+    padding 50px 10px 10px 160px
+    min-height 500px
+	.input
+		width 250px
+	.forgot-password
+	  font-size 12px;
+	.controls
+	  .text
+	   	font-size 16px
+	   	margin-left 10px
+	.community
+		padding 20px 115px 0 0;
+	.community .item
+	  margin-left 30px
+	  height 90px
+	  width 90px
+	  margin-bottom 30px
+	  border 1px solid $uber-red
+	  box-shadow: 1px 1px 1px 1px #ccc;
+
+	.community .item:nth-child(6n+1)
+	  margin-left 0
+	.community .item.rotate
+		border 2px solid $uber-red
+		overflow:hidden;
+		transition-duration: 0.8s;
+    transform:rotate(360deg);

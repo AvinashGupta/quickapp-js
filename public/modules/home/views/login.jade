@@ -1,0 +1,56 @@
+mixin errorMessages(model, messageList, classes)
+  .error-messages(class=classes ng-messages=model us-messages-include=messageList 
+    ng-show= '!'+ model+'.$pristine && ' + model + '.$invalid')
+
+- var registration = {}
+
+- registration.email = {}
+- registration.email.required = 'Email is required!'
+- registration.email.usEmail = 'This is incorrect email'
+
+- registration.password = {}
+- registration.password.required = 'Password is required!'
+- registration.password.minlength = 'Min 8 char, atleast 1 num and 1 special char'
+
+.login-registration
+  .content
+    form(name='registration' novalidate us-submit='signin()')
+      .form-group.pure-g
+        .pure-u-9-24
+          input.form-control(name='email' ng-model="credentials.email" ng-model-options='{ updateOn: "blur" }'
+            required us-email placeholder='Email')
+        .pure-u-15-24
+          +errorMessages('registration.email', JSON.stringify(registration.email))
+          .error-messages(ng-show='registration.email.$valid')
+            span Welcome!
+
+      .form-group.pure-g
+        .pure-u-9-24
+          input.form-control(type="password" name='password' ng-model="credentials.password" 
+            required placeholder='Password')
+        .pure-u-15-24
+          +errorMessages('registration.password', JSON.stringify(registration.password))
+
+      .form-group.pure-g
+        label
+          input(type='checkbox' ng-model='credentials.remember')
+          span remember me
+      .form-group.pure-g
+        a.forgot-password(href='') Forgot password?
+
+      .controls
+        button.us-color-btn.btn-l2 Enter
+        span.text this awesome community
+    .community(img-rotator)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
+      img.item.img-circle(src='/img/default-user-pic.jpeg' img-rotator-item)
