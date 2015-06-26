@@ -35,7 +35,7 @@ module.exports = {
 
   js : {
     vendor : [
-      '/lib/bower/lodash/dist/lodash.min.js',
+      '/lib/bower/lodash/lodash.min.js',
       '/lib/bower/jquery/dist/jquery.min.js',
       '/lib/bower/angular/angular.min.js',
       '/lib/bower/angular-resource/angular-resource.min.js',
