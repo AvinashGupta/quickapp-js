@@ -24,6 +24,7 @@ var express = require('express'),
     nib = require('nib'),
     path = require('path'),
     url = require('url'),
+    _ = require('lodash'),
     utilities = require('./utilities');
 
 module.exports = function(db) {
@@ -113,19 +114,43 @@ module.exports = function(db) {
       next();
     });
 
+
+    /** RESTRICT .map FILES REQUEST **/
+    app.get('*', function(req, res, next){
+        if(_.isString(req.url) && req.url.substring(req.url.length - 4) == '.map'){
+              res.end('');
+        }else{
+            next();
+        }
+    })
+
+    /**
+    * Static templates
+    */
+    app.get('/templates/*', function(req, res) {
+        res.render(path.join('./', req.url.substring(10, req.url.length)),{
+            require : require
+        });
+    })
+
     // Load Client Applications Markup Routers
-    require('./.configureMarkupRouters').createAppsLaunchRoutes(app);
+    // require('./.configureMarkupRouters').createAppsLaunchRoutes(app);
+    require('../app/routes/app').appRoutes(app);
 
     // Setting the app router and static folder
     app.use(express.static(config.root + '/public'));
 
     // Load Database API Routes
     utilities.walk('./app/routes', /(.*)\.(js$|coffee$)/).forEach(function(routePath) {
-        require(path.resolve(routePath))(app);
+        var route = require(path.resolve(routePath));
+        if (_.isFunction(route)){
+            route(app);
+        }
     });
 
     // HTML5 Mode support
-    require('./.configureMarkupRouters').setAppsAsDefaultRoutes(app);
+    // require('./.configureMarkupRouters').setAppsAsDefaultRoutes(app);
+    require('../app/routes/app').endRoutes(app);
 
     /**
         Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, 

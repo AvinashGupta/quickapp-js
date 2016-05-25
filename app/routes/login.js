@@ -1,8 +1,7 @@
 'use strict';
 
 var passport = require('passport'),
-		loginCtl = require('../controllers/login'),
-    adminCtl = require('../controllers/admin');
+		loginCtl = require('../controllers/login');
 
 module.exports = function(app) {
 	/**
@@ -21,10 +20,4 @@ module.exports = function(app) {
   app.post('/user/register', loginCtl.registerLocal)
   app.post('/user/logout', loginCtl.signout)
   app.post('/test', loginCtl.test)
-
-  /**
-   * Admin 
-  */
-  app.post('/admin/login', adminCtl.loginLocal)
-  app.post('/admin/logout', adminCtl.signout)
 };

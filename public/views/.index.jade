@@ -1,9 +1,8 @@
 doctype html
-- var jadeHtml = require('fs').readFileSync(settings.views + application.indexFileUrl, 'utf8');
-- var html = require('jade').compile(jadeHtml, {cache:cache, pretty:pretty})({})
+
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
   head
-    title #{application.metaData.title}
+    title Web App
 
     // General META 
     meta(charset='utf-8')
@@ -12,76 +11,59 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     meta(name='viewport', content='width=device-width,initial-scale=1')
 
     // Semantic META 
-    meta(name='keywords', content=application.metaData.keywords)
-    meta(name='description', content=application.metaData.description)
+    meta(name='keywords', content='web-app,web-app1')
+    meta(name='description', content='web-app')
 
     // Social META 
-    meta(property='fb:app_id', content=application.metaData.appID)
-    meta(property='og:site_name', content=application.metaData.siteName)
-    meta(property='og:title', content=application.metaData.title)
-    meta(property='og:description', content=application.metaData.description)
-    meta(property='og:url', content=application.metaData.url)
-    meta(property='og:image', content=application.metaData.image)
-    meta(property='og:type', content=application.metaData.type)
+    meta(property='fb:app_id', content='AppID')
+    meta(property='og:site_name', content='site_name')
+    meta(property='og:title', content='web-app')
+    meta(property='og:description', content='web-app')
+    meta(property='og:url', content='URL')
+    meta(property='og:image', content='/img/image.png')
+    meta(property='og:type', content='website')
 
     // Fav Icon 
-    link(href=application.metaData.favicon rel='shortcut icon',type='image/x-icon')
+    link(href='/img/favicon.ico' rel='shortcut icon',type='image/x-icon')
 
-    // Application Modules CSS
+    // Dependencies style
+    link(rel='stylesheet' href='/lib/bower/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet' href='/lib/bower/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet' href='/lib/bower/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet' href='/lib/bower/angular-growler/build/angular-growl.min.css')
+    link(rel='stylesheet' href='/style-sheets/common.css')
+    link(rel='stylesheet' href='/style-sheets/fonts.css')
+
+    // App Modules custom style
     - for(var j=0; j<application.css.length; j++)
         link(rel='stylesheet' href=application.css[j])
 
     // HTML5 Shim 
     //if lt IE 9
       script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    
+    // Dependencies Js
+    script(type='text/javascript' src='/lib/bower/lodash/lodash.min.js')
+    script(type='text/javascript' src='/lib/bower/jquery/dist/jquery.min.js')
+    script(type='text/javascript' src='/lib/bower/bootstrap/dist/js/bootstrap.min.js')
+    script(type='text/javascript' src='/lib/bower/angular/angular.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-resource/angular-resource.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-cookies/angular-cookies.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-animate/angular-animate.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-sanitize/angular-sanitize.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-bootstrap/ui-bootstrap-tpls.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-ui-utils/ui-utils.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-ui-router/release/angular-ui-router.min.js')
+    script(type='text/javascript' src='/lib/bower/angular-growler/build/angular-growl.min.js')
 
-    script.
-      // Init the application configuration module for AngularJS application
-      var ApplicationConfiguration = (function() {
-        // Init module configuration options
-        var applicationModuleName = !{'"' + application.angular.globalModlueName  + '"'};
-        var applicationModuleVendorDependencies = !{JSON.stringify(application.angular.globalDependencies)};
-        var allModules = [];
-        // Add a new vertical module
-        var registerModule = function(moduleName) {
-          // Create angular module
-          angular.module(moduleName, []);
-
-          allModules.push(moduleName);
-        };
-
-        return {
-          applicationModuleName: applicationModuleName,
-          applicationModuleVendorDependencies: applicationModuleVendorDependencies,
-          allModules : allModules,
-          registerModule: registerModule
-        };
-      })();
-
-
-    // Application Modules
+    // Initialize App module
+    script(src='/js/home.js')
+    
+    // App Modules custom js
     - for(var j=0; j<application.js.length; j++)
         script(type='text/javascript' src=application.js[j])
 
-
-    script.
-      //Then define the init function for starting up the application
-      angular && angular.element(document).ready(function() {
-        //Fixing facebook bug with redirect
-        if (window.location.hash === '#_=_') window.location.hash = '#!';
-        //Start by defining the main module and adding the module dependencies
-        angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies.concat(ApplicationConfiguration.allModules));
-        
-        // Setting HTML5 Location Mode
-        angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
-          function($locationProvider) {
-            $locationProvider.
-            // html5Mode(true);
-            hashPrefix('!');
-          }
-        ]);
-
-        //Then init the app
-        angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
-      });
-  !{html}
+    // To remove hash from URL
+    base(href='/')
+  
+  body(ng-cloak ui-view="")

@@ -1,7 +1,7 @@
 'use strict';
 
 //Authentication service for user variables
-angular.module('PROJECT.core')
+angular.module('uberstarter.home')
 .factory('Auth', ['$rootScope', '$state', '$resource', '$http',
   function($rootScope, $state, $resource, $http) {
     var userRes = $resource('/coninjas/me/:userId', {

@@ -11,6 +11,8 @@ exports.get = function(application){
 			appCss = application.css,
 			appJs = application.js;
 
+	appModules = _.isArray(appModules) ? appModules : [appModules];
+
 	var jsFiles = [], cssFiles = [];
 
 	function stylusToCss(cssArray){
@@ -29,7 +31,8 @@ exports.get = function(application){
 		outPutF.css = _.flatten([outPutF.css, stylusToCss(cssFiles)]);
 	}
 
-	outPutF.js = _.flatten([appJs.vendor, appJs.custom, outPutF.js]);
-	outPutF.css = _.flatten([appCss.vendor, stylusToCss(appCss.custom), outPutF.css]);
+	if (appJs) outPutF.js = _.flatten([appJs.vendor, appJs.custom, outPutF.js]);
+	if (appCss) outPutF.css = _.flatten([appCss.vendor, stylusToCss(appCss.custom), outPutF.css]);
+	
 	return outPutF
 }
