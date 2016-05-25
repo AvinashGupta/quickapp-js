@@ -8,7 +8,8 @@ exports.appRoutes = function(app) {
   /**
    * Default App
   */
-  app.get('/', appCtl.home);
+  app.get('/', appCtl.dashboard);
+  app.get('/home', appCtl.home);
 };
 
 exports.endRoutes = function(app) {

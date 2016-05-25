@@ -1,4 +1,5 @@
 var _ = require('lodash'),
+    path = require('path'),
     moduleFiles = require('../helpers/moduleFiles');
 
 exports.home = function(req, res, next){
@@ -7,14 +8,18 @@ exports.home = function(req, res, next){
       modules : 'home'
     }
   });
-  res.render('views/.index', {
-    user: req.user || null,
-    // cache: true,
-    // pretty : true,
+  res.render('views/home', {
     application: {
       css: extractedFiles.css,
       js: extractedFiles.js,
     },
-    require : require
+    require : require,
+    // user: req.user || null,
+    // cache: true,
+    // pretty : true,
   });
+}
+
+exports.dashboard = function(req, res, next){
+  res.sendFile(path.join(__dirname+'../../../public/views/dashboard.html'));
 }
