@@ -19,16 +19,17 @@ var mailTemplate = null;
 */
 if(config.mailersConfigure.type == 'SES'){
     var _transport = nodemailer.createTransport("SES", {
-        AWSAccessKeyID: config.mailersConfigure.accessKeyId,
-        AWSSecretKey: config.mailersConfigure.secretAccessKey,
-        ServiceUrl: config.mailersConfigure.serviceUrl
+        AWSAccessKeyID: config.ses.accessKeyId,
+        AWSSecretKey: config.ses.secretAccessKey,
+        region: config.ses.region,
+        ServiceUrl: config.ses.serviceUrl,
     });
 }else if(config.mailersConfigure.type == 'SMTP'){
     var _transport = nodemailer.createTransport("SMTP",{
-        service: config.mailersConfigure.service,
+        service: config.smtp.service,
         auth: {
-            user: config.mailersConfigure.email,
-            pass: config.mailersConfigure.password
+            user: config.smtp.email,
+            pass: config.smtp.password
         }
     });
 }else{
@@ -114,83 +115,42 @@ var mailers = [{
 // Attaching mailers to exports for syntactic sugar
 for (var i = 0; i < mailers.length; i++) {
     mailers[i].from = config.mailers[mailers[i].fromEmailType];
-    // if(mailers[i].toAdmni){
-        exports[mailers[i].functionName] = (function(mailer) {
-            return function(contexts, callback) {
-                mailTemplate(mailer.functionName, true, function(err, batch) {
-                    if (err) {
-                        logger.error("Couldn't send email because: ", err);
-                        return callback(err);
-                    }
-                    if(_.isArray(contexts)){
-                        async.each(contexts, function(context, cb) {
-                            sendMail(context, cb);
-                        }, callback);
-                    }else if(!_.isArray(contexts) && _.isObject(contexts)){
-                        sendMail(contexts, callback);
-                    }
-                    
-                    function sendMail(context, cb){
-                        // var context = contexts;
-                        // context.to =  config.adminDetail.receivingEmail;
-                        _.extend(context, mailer.overwrite || {});
-                        batch(context, templatesDir, function(err, html, text) {
-                            if (err) return cb(err);
-                            return _transport.sendMail({
-                                from: mailer.from,
-                                to: context.to,
-                                subject: mailer.subject,
-                                html: html,
-                                text: text
-                            }, cb);
-                        });
-                    }
-                });
-            };
-        })(mailers[i]);
-    // }else{
-    //     exports[mailers[i].functionName] = (function(mailer) {
-    //         return function(contexts, callback) {
-
-    //                 var query = {
-    //                     email: {
-    //                         $in: _.map(contexts, function(e) {
-    //                             return e.to;
-    //                         })
-    //                     }
-    //                 };
-    //                 User
-    //                     .find(query)
-    //                     .select('email')
-    //                     .lean()
-    //                     .exec(function(err, users) {
-    //                         contexts = _.filter(contexts, function(context) {
-    //                             return !!_.find(users, function(e) {
-    //                                 return e.email == context.to
-    //                             });
-    //                         });
-    //                         mailTemplate(mailer.functionName, true, function(err, batch) {
-    //                             if (err) {
-    //                                 logger.error("Couldn't send email because: ", err);
-    //                                 return callback(err);
-    //                             }
-    //                             async.each(contexts, function(context, cb) {
-    //                                 batch(context, templatesDir, function(err, html, text) {
-    //                                     if (err) return cb(err);
-    //                                     return _transport.sendMail({
-    //                                         from: mailer.from,
-    //                                         to: context.to || config.adminDetail.receivingEmail,
-    //                                         subject: mailer.subject,
-    //                                         html: html,
-    //                                         text: text
-    //                                     }, cb);
-    //                                 });
-    //                             }, callback);
-    //                         });
-
-    //                     });
-    //         };
-    //     })(mailers[i]);
-    // }
-        
+    exports[mailers[i].functionName] = (function(mailer) {
+        return function(contexts, callback) {
+            mailTemplate(mailer.functionName, true, function(err, batch) {
+                if (err) {
+                    logger.error("Couldn't send email because: ", err);
+                    return callback(err);
+                }
+                if(_.isArray(contexts)){
+                    async.each(contexts, function(context, cb) {
+                        sendMail(context, cb);
+                    }, callback);
+                }else if(!_.isArray(contexts) && _.isObject(contexts)){
+                    sendMail(contexts, callback);
+                }
+                
+                function sendMail(context, cb){
+                    _.extend(context, mailer.overwrite || {});
+                    console.log({
+                        from: mailer.from,
+                        to: context.to,
+                        subject: mailer.subject,
+                        html: html,
+                        text: text
+                    })
+                    batch(context, templatesDir, function(err, html, text) {
+                        if (err) return cb(err);
+                        return _transport.sendMail({
+                            from: mailer.from,
+                            to: context.to,
+                            subject: mailer.subject,
+                            html: html,
+                            text: text
+                        }, cb);
+                    });
+                }
+            });
+        };
+    })(mailers[i]);
 }

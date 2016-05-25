@@ -4,9 +4,9 @@ module.exports = {
   accessUrl : '/',
   indexFileUrl : '/views/main.jade',
   metaData : {
-  	title : 'My-project',
-  	description : 'My-project-description',
-  	keywords : 'tag1, tag2, tag3',
+  	title : 'web-app',
+  	description : 'web-app',
+  	keywords : 'web-app,web-app1',
   	siteName : 'site_name',
   	appID : 'AppID',
   	url : 'Url',
@@ -16,27 +16,27 @@ module.exports = {
   },
   angular : {
     globalModlueName : 'My-AdminProject',
-    globalDependencies : ['ngResource', 'ngCookies', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngSanitize'],
-    modules : ['core', 'LR', 'home'],
+    globalDependencies : ['ngResource', 'ngCookies', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngSanitize', 'angular-growl'],
+    modules : ['core', 'home'],
   },
   css : {
     vendor : [
-      '/lib/css/pure-0.5.css',
-      '/lib/css/pure-responsive-0.5.css',  
-
       '/lib/bower/bootstrap/dist/css/bootstrap.min.css',
-      '/lib/bower/bootstrap/dist/css/bootstrap-theme.min.css'
+      '/lib/bower/font-awesome/css/font-awesome.min.css',
+      '/lib/bower/bootstrap/dist/css/bootstrap-theme.min.css',
+      '/lib/bower/angular-growler/build/angular-growl.min.css'
     ],
     custom : [
       '/style-sheets/common.css',
       '/style-sheets/fonts.css'
     ]
   },
-
+  
   js : {
     vendor : [
       '/lib/bower/lodash/lodash.min.js',
       '/lib/bower/jquery/dist/jquery.min.js',
+      '/lib/bower/bootstrap/dist/js/bootstrap.min.js',
       '/lib/bower/angular/angular.min.js',
       '/lib/bower/angular-resource/angular-resource.min.js',
       '/lib/bower/angular-cookies/angular-cookies.min.js',
@@ -45,6 +45,7 @@ module.exports = {
       '/lib/bower/angular-bootstrap/ui-bootstrap-tpls.min.js',
       '/lib/bower/angular-ui-utils/ui-utils.min.js',
       '/lib/bower/angular-ui-router/release/angular-ui-router.min.js',  
+      '/lib/bower/angular-growler/build/angular-growl.min.js',
     ],
     custom : [
       // '/js/config-main-application.js'

@@ -10,9 +10,9 @@ var path = require('path'),
 
 module.exports = {
     app: {
-        title: 'My-project',
-        description: 'My-project-description',
-        keywords: 'My-project-keywords'
+        title: 'web-app',
+        description: 'web-app',
+        keywords: 'web-app'
     },
     db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI,
     root: rootPath,
@@ -20,6 +20,27 @@ module.exports = {
     templateEngine: 'jade',
     sessionSecret: 'My-secret-key',
     sessionCollection: 'new-sessions',
+    s3: {
+        "accessKeyId": "*******************",
+        "secretAccessKey": "******************************************",
+        "region": "eu-central-1",
+        "bucketName": "***********",
+        "awsAccountId": '*************'
+    },
+    ses: {
+        "accessKeyId": "********************",
+        "secretAccessKey": "****************************************",
+        "serviceUrl": "https://email.eu-west-1.amazonaws.com",
+        "region": "eu-west-1"
+    },
+    smtp: {
+        service : 'Gmail', // 'email-smtp.us-west-2.amazonaws.com',
+        email : '*******@******.com',
+        password : '************',
+    },
+    mailersConfigure : {
+        type : 'SES', // 'SMTP'
+    },
     mailers: {
         support: "Uberstarter Support ✔ <support@email.com>",
         community: "Uberstarter Community ✔ <community@email.com>",
