@@ -17,7 +17,7 @@ module.exports = {
   angular : {
     globalModlueName : 'My-AdminProject',
     globalDependencies : ['ngResource', 'ngCookies', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngSanitize', 'angular-growl'],
-    modules : ['core', 'home'],
+    modules : ['home'],
   },
   css : {
     vendor : [
