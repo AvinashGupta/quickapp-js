@@ -1,6 +1,10 @@
 var _ = require('lodash'),
     path = require('path'),
+    swig = require('swig'),
     moduleFiles = require('../helpers/moduleFiles');
+    
+// Disables caching in Swig.
+swig.setDefaults({ cache: false });
 
 exports.home = function(req, res, next){
   var extractedFiles = moduleFiles.get({
@@ -21,5 +25,20 @@ exports.home = function(req, res, next){
 }
 
 exports.dashboard = function(req, res, next){
-  res.sendFile(path.join(__dirname+'../../../public/views/dashboard.html'));
+  var tpl = swig.compileFile( path.join(__dirname+'../../../public/views/dashboard.html') );
+  var extractedFiles = moduleFiles.get({
+    angular : {
+      modules : 'home'
+    }
+  });
+  res.send(tpl({
+    application: {
+      css: extractedFiles.css,
+      js: extractedFiles.js,
+    },
+    require : require,
+    // user: req.user || null,
+    // cache: true,
+    // pretty : true,
+  }));
 }

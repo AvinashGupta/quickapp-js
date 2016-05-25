@@ -19,6 +19,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     config = require('./config'),
     consolidate = require('consolidate'),
+    swig = require('swig'),
     stylus = require('stylus'),
     stylusMiddleware = require('./stylus-middleware.js')(stylus),
     nib = require('nib'),
@@ -26,6 +27,9 @@ var express = require('express'),
     url = require('url'),
     _ = require('lodash'),
     utilities = require('./utilities');
+
+// Disables caching in Swig.
+swig.setDefaults({ cache: false });
 
 module.exports = function(db) {
     // Initialize express app
@@ -128,9 +132,15 @@ module.exports = function(db) {
     * Static templates
     */
     app.get('/templates/*', function(req, res) {
-        res.render(path.join('./', req.url.substring(10, req.url.length)),{
-            require : require
-        });
+        var url = path.join('./', req.url.substring(10, req.url.length));
+        if(url.slice(-5) == '.html'){
+            var tpl = swig.compileFile( path.join(__dirname,'../public/'+url) );
+            res.send( tpl({}) );
+        }else{
+            res.render(url ,{
+                require : require
+            });
+        }
     })
 
     // Load Client Applications Markup Routers

@@ -15,24 +15,28 @@ config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
 		$stateProvider
 			.state('home', {
 				url: '/home',
-				abstract : true,
-				templateUrl: '/templates/modules/home/views/home-top-navigation',
-				controller: "homeCtl"
+				templateUrl: '/templates/modules/home/views/dashboard.html',
 			})
-			.state('home.default', {
-				url: '',
-				templateUrl: '/templates/modules/home/views/home',
-			})
+			// .state('home', {
+			// 	url: '/home',
+			// 	abstract : true,
+			// 	templateUrl: '/templates/modules/home/views/home-top-navigation',
+			// 	controller: "homeCtl"
+			// })
+			// .state('home.default', {
+			// 	url: '',
+			// 	templateUrl: '/templates/modules/home/views/home',
+			// })
 
-			.state('home.register', {
-				url: '/registration',
-				templateUrl: 'templates/modules/home/views/register',
-				controller: 'LRCtl'
-			})
-			.state('home.login', {
-				url: '/login',
-				templateUrl: 'templates/modules/home/views/login',
-				controller: 'LRCtl'
-			})
+			// .state('home.register', {
+			// 	url: '/registration',
+			// 	templateUrl: 'templates/modules/home/views/register',
+			// 	controller: 'LRCtl'
+			// })
+			// .state('home.login', {
+			// 	url: '/login',
+			// 	templateUrl: 'templates/modules/home/views/login',
+			// 	controller: 'LRCtl'
+			// })
 	}
 ])

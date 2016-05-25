@@ -29,7 +29,7 @@ $(function () {
         // normalize content
         contentHeight -= $NAV_MENU.height() + $FOOTER.height();
 
-        $RIGHT_COL.css('min-height', contentHeight);
+        $RIGHT_COL.css('min-height', contentHeight-25);
     };
 
     $SIDEBAR_MENU.find('a').on('click', function(ev) {
@@ -88,7 +88,7 @@ $(function () {
     $(window).smartresize(function(){  
         setContentHeight();
     });
-
+    setContentHeight();
 });
 
 // Panel toolbox
